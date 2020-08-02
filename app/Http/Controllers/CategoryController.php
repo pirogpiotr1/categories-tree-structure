@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Response;
 
 class CategoryController extends Controller
 {
@@ -17,7 +18,8 @@ class CategoryController extends Controller
      * @return Factory|View
      */
     public function categoriesView(){
-        $rootCategory = Category::where('parent_id', '=', '0')->get();
+        
+        $rootCategory = Category::whereNull('parent_id')->get();
         $allCategories = Category::all();
         return view('categories.categoriesView', compact('rootCategory','allCategories'));
     }
@@ -37,15 +39,51 @@ class CategoryController extends Controller
 
         // jesli brak ustawiam na 0
         if(empty((  $input['parent_id']))){
-            $input['parent_id'] = 0;
+            $input['parent_id'] = null;
         }
         Category::create($input);
         return back()->with('Success','added');
     }
 
     public function removeCategory(Request $request){
-       echo json_encode([
-           'status' => 'SUCCESS'
-       ]);
+        $status = false;
+        $data = $request->all();
+
+        //element do usuniecia 
+        $deleteBranchEl = null;
+        
+        if( $data['id']){
+            $deleteBranchEl = Category::where('id', $data['id'])->delete();
+            if($deleteBranchEl){
+                $status = true;
+            }
+        }
+        
+        return \Response::json(array(
+            'success' => true
+        )); 
+    }
+    
+    public function editCategory(Request $request){
+        $this->validate($request,[
+            'name' => 'required',
+            'id' =>'required',
+            'parent_id'=> 'different:id'
+        ]);
+
+        $input = $request->all();
+
+        // jesli brak ustawiam na 0
+        if(empty((  $input['parent_id']))){
+            $input['parent_id'] = null;
+        }
+        
+        Category::where('id', $input['id'])
+          ->update([
+              'name' => $input['name'],
+              'parent_id' => $input['parent_id']
+            ]);
+
+        return back()->with('Success','added'); 
     }
 }

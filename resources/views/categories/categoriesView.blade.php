@@ -14,15 +14,18 @@
     @foreach($rootCategory as $category)
         <li>
             <span> {{ $category->name }} </span>
-            <div class="js-remove-el" id="{{$category->id}}">Remove</div>
+            <div class="js-remove-el" data-id="{{$category->id}}">Remove</div>
+            <div class="js-edit-el" data-id="{{$category->id}}" data-name="{{$category->name}}">Edit</div>
             @if(count($category->childs))
                 @include('categories.categoriesChilds',['childs' => $category->childs])
             @endif
         </li>
     @endforeach
 </ul>
-<form role="form" id="category" method="POST" action="{{ route('add_category') }}" enctype="multipart/form-data">
+<form role="form" id="category" method="POST" action="{{ route('add_category') }}" data-edit-action="{{ route('edit_category') }}" enctype="multipart/form-data">
     @csrf
+
+    <input name="id" type="hidden" value=""/> 
     <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
         <label>Title:</label>
         <input type="text" id="name" name="name" value="" class="form-control" placeholder="Enter Title">
@@ -47,7 +50,7 @@
         @endif
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-success" value="Add New"/>
+        <input type="submit" class="btn btn-success js-add-edit" value="Add New"/>
     </div>
 </form>
 <script src="{{ asset('js/categories.js') }}"></script>

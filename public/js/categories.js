@@ -1,6 +1,7 @@
 /**
  * Zarządzanie usuwaniem
  * TODO dodac osobne klasy do budowy calosci
+ * TOTO Aktualizacja 
  */
 class ManageCategories {
     homePage = window.location.origin;
@@ -8,37 +9,51 @@ class ManageCategories {
     constructor() {
         this.initEventListeners();
     }
-
+    /**
+     * Inicjalizacja nasluchiwania zdarzeń
+     */
     initEventListeners = () => {
         let removeEls = document.querySelectorAll('.js-remove-el');
+        let editEls = document.querySelectorAll('.js-edit-el');
+
         Array.from(removeEls).forEach(el => {
             el.addEventListener('click', this.handleRemoveEvent);
         });
+        
+        Array.from(editEls).forEach(el => {
+            el.addEventListener('click', this.handleEdit);
+        });
     };
+    
     /**
      * obsluga wywoływanego eventu
      * @param event
      */
-     handleRemoveEvent = event => {
-        const id = event.currentTarget.id;
+    handleRemoveEvent = event => {
+        const id = event.currentTarget.dataset.id;
+
         if(id){
             this.removeEl(id)
-                .then(this.handleRemoveResponse)
-                .catch(error => alert(error));
+                .then(data => { data.success && document.querySelector(`.js-remove-el[data-id="${id}"]`).parentNode.remove() })
+                .catch(error => console.log(error));
         }
     };
     /**
-     * Obsluga usuwania wezłów
-     * @param data
+     * Zmiana formularza na edycję 
      */
-     handleRemoveResponse = data =>{
-         const response = JSON.parse(data);
-         switch(response.status){
-             case 'SUCCESS':
-                 //TODO usuwanie wezła
-                 break;
-         }
-     };
+    handleEdit = event => {
+        const {id,name} = event.currentTarget.dataset;
+        //document.getElementsByTagName('form').getAttribute('data-edit-action');
+        const dataEditAction = document.querySelector('form').dataset.editAction;
+        document.querySelector('form').action = dataEditAction;
+        document.querySelector('input[name="id"]').value = id;
+        document.getElementById('name').value = name;
+        document.querySelector('.js-add-edit').value = 'Edit category';
+
+        const options = document.getElementById('parent_id').options;
+        
+    }
+
     /**
      * AJAX do usuwania categorii
      * @param id
@@ -60,6 +75,7 @@ class ManageCategories {
 
         return await response.json();
     };
+
 }
 
 const app = new ManageCategories();
