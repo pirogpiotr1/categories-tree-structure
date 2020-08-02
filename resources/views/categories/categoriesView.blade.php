@@ -10,22 +10,26 @@
 </head>
 <body>
 
-<ul id="tree1">
+<ul class="js-sortable" data-id="0" >
     @foreach($rootCategory as $category)
-        <li>
+        <li data-id="{{$category->id}}">
             <span> {{ $category->name }} </span>
             <div class="js-remove-el" data-id="{{$category->id}}">Remove</div>
-            <div class="js-edit-el" data-id="{{$category->id}}" data-name="{{$category->name}}">Edit</div>
+            <div class="js-edit-el" data-id="{{$category->id}}" data-name="{{$category->name}}" data-parent_id="{{$category->parent_id}}" >Edit</div>
             @if(count($category->childs))
-                @include('categories.categoriesChilds',['childs' => $category->childs])
+                @include('categories.categoriesChilds',['childs' => $category->childs,'root_id' =>$category->id])
             @endif
         </li>
     @endforeach
 </ul>
+
+<div class="js-change-addform" style="display: none">
+    Dodaj categorie
+</div>
 <form role="form" id="category" method="POST" action="{{ route('add_category') }}" data-edit-action="{{ route('edit_category') }}" enctype="multipart/form-data">
     @csrf
 
-    <input name="id" type="hidden" value=""/> 
+    <input name="id" type="hidden" value=""/>
     <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
         <label>Title:</label>
         <input type="text" id="name" name="name" value="" class="form-control" placeholder="Enter Title">

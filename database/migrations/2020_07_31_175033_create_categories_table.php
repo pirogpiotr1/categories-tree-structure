@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('parent_id')->nullable();
+            $table->integer('sort')->nullable();
             $table->timestamps();
         });
 
@@ -25,7 +26,7 @@ class CreateCategoriesTable extends Migration
         });
     }
 
-    
+
     /**
      * Reverse the migrations.
      *

@@ -18,8 +18,8 @@ class CategoryController extends Controller
      * @return Factory|View
      */
     public function categoriesView(){
-        
-        $rootCategory = Category::whereNull('parent_id')->get();
+
+        $rootCategory = Category::whereNull('parent_id')->orderByRaw('-sort DESC')->get();
         $allCategories = Category::all();
         return view('categories.categoriesView', compact('rootCategory','allCategories'));
     }
@@ -32,7 +32,8 @@ class CategoryController extends Controller
      */
     public function addCategory(Request $request){
         $this->validate($request,[
-            'name' => 'required'
+            'name' => 'required',
+            'id' => 'in:""'
         ]);
 
         $input = $request->all();
@@ -49,21 +50,21 @@ class CategoryController extends Controller
         $status = false;
         $data = $request->all();
 
-        //element do usuniecia 
+        //element do usuniecia
         $deleteBranchEl = null;
-        
+
         if( $data['id']){
             $deleteBranchEl = Category::where('id', $data['id'])->delete();
             if($deleteBranchEl){
                 $status = true;
             }
         }
-        
+
         return \Response::json(array(
             'success' => true
-        )); 
+        ));
     }
-    
+
     public function editCategory(Request $request){
         $this->validate($request,[
             'name' => 'required',
@@ -77,13 +78,47 @@ class CategoryController extends Controller
         if(empty((  $input['parent_id']))){
             $input['parent_id'] = null;
         }
-        
+
         Category::where('id', $input['id'])
           ->update([
               'name' => $input['name'],
               'parent_id' => $input['parent_id']
             ]);
 
-        return back()->with('Success','added'); 
+        return back()->with('Success','added');
+    }
+
+    public function changePosition(Request $request){
+        $status = false;
+        $data = $request->all();
+
+        if( $data['to_id'] == 0 ){
+            $data['to_id'] = null;
+        }
+        $check = null;
+
+        $check = true;
+        Category::where('id', $data['from_id'])
+            ->update([
+                'parent_id' => $data['to_id']
+            ]);
+
+        return \Response::json(array(
+            'success' => $check
+        ));
+    }
+    public function changeSort(Request $request){
+        $status = false;
+        $data = $request->all();
+        foreach ($data['order'] as $key => $item ) {
+            Category::where('id', $item)
+                ->update([
+                    'sort' => $key
+                ]);
+        }
+
+        return \Response::json(array(
+            'success' => true
+        ));
     }
 }

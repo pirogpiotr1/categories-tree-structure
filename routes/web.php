@@ -15,5 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('categories', 'CategoryController@categoriesView')->name('categories');
 Route::post('add_category', 'CategoryController@addCategory')->name('add_category');
-Route::post('remove_category', 'CategoryController@removeCategory')->name('remove_category');
 Route::post('edit_category', 'CategoryController@editCategory')->name('edit_category');
+// AJAX
+Route::post('remove_category', 'CategoryController@removeCategory')->name('remove_category');
+Route::post('change_position', 'CategoryController@changePosition')->name('change_position');
+Route::post('change_sort', 'CategoryController@changeSort')->name('change_sort');
