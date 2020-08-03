@@ -16,7 +16,7 @@ hasło: admin
 Strona po zalogowaniu automatycznie przekieruje na widok kategorii.
 
 Dodawanie/edycja znajduję się po prawej stronie.
-Usuwanie, sortowanie oraz przenoszenie węzłów odbywa się przy pomocy AJAX'a.
+Usuwanie, sortowanie oraz przenoszenie węzłów odbywa się przy pomocy AJAX'a poprzez zdarzenia drag/drop.
 Do sortowania wykorzystano bibliotekę javascriptową https://github.com/SortableJS/Sortable.
 Zmiana pomiędzy formularzem dodawania a edycji kategorii odbywa się bez przeładowywania strony.
 Dodana została podstawowa walidacja danych.
