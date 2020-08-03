@@ -1,4 +1,5 @@
 import Sortable from 'sortablejs';
+
 /**
  * Zarządzanie usuwaniem
  *
@@ -13,7 +14,7 @@ class ManageCategories {
         },
         animation: 250,
         forceFallback: true,
-        store:{
+        store: {
             set: async function (sortable) {
                 var order = sortable.toArray();
                 let response = await fetch(`${window.location.origin}/change_sort/`, {
@@ -21,7 +22,7 @@ class ManageCategories {
                         "Content-Type": "application/json",
                         "Accept": "application/json",
                         "X-Requested-With": "XMLHttpRequest",
-                        "X-CSRF-Token":  document.querySelector('input[name="_token"]').value
+                        "X-CSRF-Token": document.querySelector('input[name="_token"]').value
                     },
                     method: "POST",
                     credentials: "same-origin",
@@ -33,7 +34,7 @@ class ManageCategories {
 
                 await response.json().then(data => {
                     document.getElementById('parent_id').outerHTML = data.html;
-                }) ;
+                });
 
             }
         },
@@ -46,20 +47,20 @@ class ManageCategories {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "X-Requested-With": "XMLHttpRequest",
-                    "X-CSRF-Token":  document.querySelector('input[name="_token"]').value
+                    "X-CSRF-Token": document.querySelector('input[name="_token"]').value
                 },
                 method: "POST",
                 credentials: "same-origin",
                 body: JSON.stringify({
                     from_id: id_from,
-                    to_id:id_to
+                    to_id: id_to
                 })
             })
-            .catch(error => alert(error));
+                .catch(error => alert(error));
 
             await response.json().then(data => {
                 document.getElementById('parent_id').outerHTML = data.html;
-            }) ;
+            });
         }
     };
 
@@ -75,9 +76,10 @@ class ManageCategories {
         console.log('test');
     };
 
-    initSortable  = () => {
-
-
+    /**
+     * inicjliazjacja biblioteki sortable
+     */
+    initSortable = () => {
         let els = document.querySelectorAll('.js-sortable');
         for (let i = 0; i < els.length; i++) {
             new Sortable(els[i], this.sortableOptions);
@@ -105,23 +107,29 @@ class ManageCategories {
         document.querySelector('.js-change-addform').addEventListener('click', this.changeToAddForm);
         document.querySelector('.js-show-all').addEventListener('click', this.showAllCategories);
     };
-
+    /**
+     * pokaz wszystkie kategorie
+     * @param event
+     */
     showAllCategories = event => {
         let slideEls = document.querySelectorAll('.js-sortable');
         let imgsEls = document.querySelectorAll('.js-slide-el img');
         Array.from(slideEls).forEach(el => {
-                el.style.display = 'block'
+            el.style.display = 'block'
         });
         Array.from(imgsEls).forEach(el => {
-                el.className  = 'rotate';
+            el.className = 'rotate';
         });
 
     };
-
-    slidetoggle = event =>{
+    /**
+     * toogle pokazywania categorii
+     * @param event
+     */
+    slidetoggle = event => {
         const id = event.currentTarget.dataset.id;
-       event.target.classList.toggle("rotate");
-      //  document.querySelector(event.currentTarget.class).classList.toggle('hidden-phone');
+        event.target.classList.toggle("rotate");
+        //  document.querySelector(event.currentTarget.class).classList.toggle('hidden-phone');
         let el = document.querySelector(`.js-sortable[data-id="${id}"]`);
 
         if (el.style.display === "none") {
@@ -144,7 +152,7 @@ class ManageCategories {
         document.querySelector('.js-label').innerHTML = `Category name:`;
         document.querySelector('.js-add-edit').value = 'Add new';
         document.getElementById('parent_id').value = 0;
-        document.querySelector('.js-change-addform').style.display  = 'none';
+        document.querySelector('.js-change-addform').style.display = 'none';
     };
 
     /**
@@ -154,7 +162,7 @@ class ManageCategories {
     handleRemoveEvent = event => {
         const id = event.currentTarget.dataset.id;
 
-        if(id) {
+        if (id) {
             if (window.confirm("Do you really want to delete that category?")) {
                 this.removeEl(id)
                     .then(data => {
@@ -164,14 +172,14 @@ class ManageCategories {
                     })
                     .catch(error => console.log(error));
 
-          }
+            }
         }
     };
     /**
      * Zmiana formularza na edycję
      */
     handleEdit = event => {
-        const {id,name,parent_id} = event.currentTarget.dataset;
+        const {id, name, parent_id} = event.currentTarget.dataset;
         let action = document.querySelector('#category').action;
         document.querySelector('#category').action = document.querySelector('#category').dataset.editAction;
         document.querySelector('#category').dataset.editAction = action;
@@ -180,12 +188,12 @@ class ManageCategories {
         document.getElementById('name').value = name;
         document.querySelector('.js-add-edit').value = 'Edit category';
 
-        if(parent_id !== ''){
+        if (parent_id !== '') {
             document.getElementById('parent_id').value = parent_id;
-        }else{
+        } else {
             document.getElementById('parent_id').value = 0;
         }
-        document.querySelector('.js-change-addform').style.display  = 'block';
+        document.querySelector('.js-change-addform').style.display = 'block';
     }
 
     /**
@@ -199,13 +207,13 @@ class ManageCategories {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
                 "X-Requested-With": "XMLHttpRequest",
-                "X-CSRF-Token":  document.querySelector('input[name="_token"]').value
+                "X-CSRF-Token": document.querySelector('input[name="_token"]').value
             },
             method: "POST",
             credentials: "same-origin",
             body: JSON.stringify({id: id})
         })
-        .catch(error => alert(error));
+            .catch(error => alert(error));
 
         return await response.json();
     };

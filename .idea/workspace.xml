@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="29cc0b5f-7b9a-4749-849f-a5a67b804b2c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/categories.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/categories.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,15 +142,16 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\pirog\Documents\web\categories_tree\resources\views\categories" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\pirog\Documents\web\categories_tree\storage\app\public\svg" />
       <recent name="C:\Users\pirog\Documents\web\categories_tree\storage\app\public" />
       <recent name="C:\Users\pirog\Documents\web\categories_tree\storage\app" />
       <recent name="C:\Users\pirog\Documents\web\categories_tree\resources\svg" />
       <recent name="C:\Users\pirog\Documents\web\categories_tree\resources\js" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\pirog\Documents\web\categories-tree-structure" />
+      <recent name="C:\Users\pirog\Documents\web\categories_tree\resources\views\categories" />
     </key>
   </component>
   <component name="RunManager">
@@ -187,7 +187,7 @@
       <workItem from="1596436708793" duration="15000" />
       <workItem from="1596436736052" duration="2000" />
       <workItem from="1596465254487" duration="18393000" />
-      <workItem from="1596490516181" duration="273000" />
+      <workItem from="1596490516181" duration="446000" />
     </task>
     <servers />
   </component>
