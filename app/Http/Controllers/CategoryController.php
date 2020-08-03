@@ -14,14 +14,22 @@ use Response;
 class CategoryController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
      * Widok zarządzania kategoriami
      * @return Factory|View
      */
     public function categoriesView(){
 
         $rootCategory = Category::whereNull('parent_id')->orderByRaw('-sort DESC')->get();
-        $allCategories = Category::all();
-        return view('categories.categoriesView', compact('rootCategory','allCategories'));
+        return view('categories.categoriesView', compact('rootCategory'));
     }
 
     /**
@@ -32,12 +40,11 @@ class CategoryController extends Controller
      */
     public function addCategory(Request $request){
         $this->validate($request,[
-            'name' => 'required',
+            'name' => 'required|max:100',
             'id' => 'in:""'
         ]);
 
         $input = $request->all();
-
         // jesli brak ustawiam na 0
         if(empty((  $input['parent_id']))){
             $input['parent_id'] = null;
@@ -59,9 +66,10 @@ class CategoryController extends Controller
                 $status = true;
             }
         }
-
+        $view = $this->getSelectView();
         return \Response::json(array(
-            'success' => true
+            'success' => true,
+            'html' => $view
         ));
     }
 
@@ -73,7 +81,6 @@ class CategoryController extends Controller
         ]);
 
         $input = $request->all();
-
         // jesli brak ustawiam na 0
         if(empty((  $input['parent_id']))){
             $input['parent_id'] = null;
@@ -102,9 +109,10 @@ class CategoryController extends Controller
             ->update([
                 'parent_id' => $data['to_id']
             ]);
-
+        $view = $this->getSelectView();
         return \Response::json(array(
-            'success' => $check
+            'success' => $check,
+            'html' =>$view
         ));
     }
     public function changeSort(Request $request){
@@ -117,8 +125,15 @@ class CategoryController extends Controller
                 ]);
         }
 
+
+        $view = $this->getSelectView();
         return \Response::json(array(
-            'success' => true
+            'success' => true,
+            'html' => $view
         ));
+    }
+    public function getSelectView(){
+        $rootCategory = Category::whereNull('parent_id')->orderByRaw('-sort DESC')->get();
+         return  (string) view('categories.categoriesViewAjaxSelect', compact('rootCategory'));
     }
 }

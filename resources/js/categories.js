@@ -30,6 +30,11 @@ class ManageCategories {
                     })
                 })
                     .catch(error => alert(error));
+
+                await response.json().then(data => {
+                    document.getElementById('parent_id').outerHTML = data.html;
+                }) ;
+
             }
         },
         onEnd: async (event) => {
@@ -51,6 +56,10 @@ class ManageCategories {
                 })
             })
             .catch(error => alert(error));
+
+            await response.json().then(data => {
+                document.getElementById('parent_id').outerHTML = data.html;
+            }) ;
         }
     };
 
@@ -80,6 +89,7 @@ class ManageCategories {
     initEventListeners = () => {
         let removeEls = document.querySelectorAll('.js-remove-el');
         let editEls = document.querySelectorAll('.js-edit-el');
+        let slideEls = document.querySelectorAll('.js-slide-el');
 
         Array.from(removeEls).forEach(el => {
             el.addEventListener('click', this.handleRemoveEvent);
@@ -88,20 +98,50 @@ class ManageCategories {
         Array.from(editEls).forEach(el => {
             el.addEventListener('click', this.handleEdit);
         });
+        Array.from(slideEls).forEach(el => {
+            el.addEventListener('click', this.slidetoggle);
+        });
 
         document.querySelector('.js-change-addform').addEventListener('click', this.changeToAddForm);
+        document.querySelector('.js-show-all').addEventListener('click', this.showAllCategories);
+    };
+
+    showAllCategories = event => {
+        let slideEls = document.querySelectorAll('.js-sortable');
+        let imgsEls = document.querySelectorAll('.js-slide-el img');
+        Array.from(slideEls).forEach(el => {
+                el.style.display = 'block'
+        });
+        Array.from(imgsEls).forEach(el => {
+                el.className  = 'rotate';
+        });
+
+    };
+
+    slidetoggle = event =>{
+        const id = event.currentTarget.dataset.id;
+       event.target.classList.toggle("rotate");
+      //  document.querySelector(event.currentTarget.class).classList.toggle('hidden-phone');
+        let el = document.querySelector(`.js-sortable[data-id="${id}"]`);
+
+        if (el.style.display === "none") {
+            el.style.display = "block";
+        } else {
+            el.style.display = "none";
+        }
     };
     /**
      * zmien form na dodawanie categorii
      * @param event
      */
     changeToAddForm = event => {
-        let action = document.querySelector('form').action;
+        let action = document.querySelector('#category').action;
 
-        document.querySelector('form').action = document.querySelector('form').dataset.editAction;
-        document.querySelector('form').dataset.editAction = action;
+        document.querySelector('#category').action = document.querySelector('#category').dataset.editAction;
+        document.querySelector('#category').dataset.editAction = action;
         document.querySelector('input[name="id"]').value = '';
         document.getElementById('name').value = '';
+        document.querySelector('.js-label').innerHTML = `Category name:`;
         document.querySelector('.js-add-edit').value = 'Add new';
         document.getElementById('parent_id').value = 0;
         document.querySelector('.js-change-addform').style.display  = 'none';
@@ -114,10 +154,17 @@ class ManageCategories {
     handleRemoveEvent = event => {
         const id = event.currentTarget.dataset.id;
 
-        if(id){
-            this.removeEl(id)
-                .then(data => { data.success && document.querySelector(`.js-remove-el[data-id="${id}"]`).parentNode.remove() })
-                .catch(error => console.log(error));
+        if(id) {
+            if (window.confirm("Do you really want to delete that category?")) {
+                this.removeEl(id)
+                    .then(data => {
+                        data.success && document.querySelector(`.js-remove-el[data-id="${id}"]`).parentNode.remove()
+                        document.getElementById('parent_id').outerHTML = data.html;
+
+                    })
+                    .catch(error => console.log(error));
+
+          }
         }
     };
     /**
@@ -125,11 +172,11 @@ class ManageCategories {
      */
     handleEdit = event => {
         const {id,name,parent_id} = event.currentTarget.dataset;
-        let action = document.querySelector('form').action;
-
-        document.querySelector('form').action = document.querySelector('form').dataset.editAction;
-        document.querySelector('form').dataset.editAction = action;
+        let action = document.querySelector('#category').action;
+        document.querySelector('#category').action = document.querySelector('#category').dataset.editAction;
+        document.querySelector('#category').dataset.editAction = action;
         document.querySelector('input[name="id"]').value = id;
+        document.querySelector('.js-label').innerHTML = `Editing category: ${name}`;
         document.getElementById('name').value = name;
         document.querySelector('.js-add-edit').value = 'Edit category';
 
@@ -139,7 +186,6 @@ class ManageCategories {
             document.getElementById('parent_id').value = 0;
         }
         document.querySelector('.js-change-addform').style.display  = 'block';
-
     }
 
     /**

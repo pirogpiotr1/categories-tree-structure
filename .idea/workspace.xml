@@ -2,15 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="29cc0b5f-7b9a-4749-849f-a5a67b804b2c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.babelrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/categories/categoriesChildsSelect.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/categories/categoriesViewAjaxSelect.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/categories_tree.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/categories_tree.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Category.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_31_175033_create_categories_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_31_175033_create_categories_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/categories.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/categories.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/categories.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/categories.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/categories.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/categories.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/categories.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/categories.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/categories/categoriesChilds.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/categories/categoriesChilds.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/categories/categoriesView.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/categories/categoriesView.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
@@ -135,6 +144,7 @@
       <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
       <path value="$PROJECT_DIR$/vendor/dnoegel/php-xdg-base-dir" />
       <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/laravel/ui" />
     </include_path>
   </component>
   <component name="ProjectId" id="1fSgveflpbLCNY66Hq30pZNrhJY" />
@@ -148,15 +158,20 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/categories" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\pirog\Documents\web\categories_tree\resources\js" />
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\pirog\Documents\web\categories_tree\resources\views\categories" />
-      <recent name="C:\Users\pirog\Documents\web\categories_tree\resources\views" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\pirog\Documents\web\categories_tree\storage\app\public\svg" />
+      <recent name="C:\Users\pirog\Documents\web\categories_tree\storage\app\public" />
+      <recent name="C:\Users\pirog\Documents\web\categories_tree\storage\app" />
+      <recent name="C:\Users\pirog\Documents\web\categories_tree\resources\svg" />
+      <recent name="C:\Users\pirog\Documents\web\categories_tree\resources\js" />
     </key>
   </component>
   <component name="RunManager">
@@ -189,6 +204,9 @@
       <updated>1596217140158</updated>
       <workItem from="1596217143279" duration="11604000" />
       <workItem from="1596392031666" duration="10361000" />
+      <workItem from="1596436708793" duration="15000" />
+      <workItem from="1596436736052" duration="2000" />
+      <workItem from="1596465254487" duration="18393000" />
     </task>
     <servers />
   </component>
@@ -224,18 +242,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/0.0.1920.1040/1920.3.1920.1040@0.0.1920.1040" timestamp="1596226058214" />
-    <state x="636" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1596392085894">
+    <state x="636" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1596465257030">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="636" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.3.1920.1040@0.0.1920.1040" timestamp="1596392085894" />
+    <state x="636" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.3.1920.1040@0.0.1920.1040" timestamp="1596465257030" />
     <state x="2556" y="348" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.3.1920.1040@1920.3.1920.1040" timestamp="1596217142840" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1596224878055">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/1920.3.1920.1040@0.0.1920.1040" timestamp="1596224878055" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1596403277007">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1596485737837">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.3.1920.1040@0.0.1920.1040" timestamp="1596403277007" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.3.1920.1040@0.0.1920.1040" timestamp="1596485737837" />
   </component>
 </project>

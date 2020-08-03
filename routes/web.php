@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,6 @@ Route::post('edit_category', 'CategoryController@editCategory')->name('edit_cate
 Route::post('remove_category', 'CategoryController@removeCategory')->name('remove_category');
 Route::post('change_position', 'CategoryController@changePosition')->name('change_position');
 Route::post('change_sort', 'CategoryController@changeSort')->name('change_sort');
+
+Auth::routes();
+Route::get('/', 'Auth\LoginController@index');

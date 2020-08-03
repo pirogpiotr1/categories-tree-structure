@@ -2043,7 +2043,7 @@ var _checkOutsideTargetEl = function _checkOutsideTargetEl(evt) {
 };
 /**
  * @class  Sortable
- * @param  {Element}  el
+ * @param  {HTMLElement}  el
  * @param  {Object}       [options]
  */
 
@@ -4643,8 +4643,12 @@ var ManageCategories = function ManageCategories() {
 
                 case 3:
                   response = _context.sent;
+                  _context.next = 6;
+                  return response.json().then(function (data) {
+                    document.getElementById('parent_id').outerHTML = data.html;
+                  });
 
-                case 4:
+                case 6:
                 case "end":
                   return _context.stop();
               }
@@ -4689,8 +4693,12 @@ var ManageCategories = function ManageCategories() {
 
               case 4:
                 response = _context2.sent;
+                _context2.next = 7;
+                return response.json().then(function (data) {
+                  document.getElementById('parent_id').outerHTML = data.html;
+                });
 
-              case 5:
+              case 7:
               case "end":
                 return _context2.stop();
             }
@@ -4721,21 +4729,51 @@ var ManageCategories = function ManageCategories() {
   _defineProperty(this, "initEventListeners", function () {
     var removeEls = document.querySelectorAll('.js-remove-el');
     var editEls = document.querySelectorAll('.js-edit-el');
+    var slideEls = document.querySelectorAll('.js-slide-el');
     Array.from(removeEls).forEach(function (el) {
       el.addEventListener('click', _this.handleRemoveEvent);
     });
     Array.from(editEls).forEach(function (el) {
       el.addEventListener('click', _this.handleEdit);
     });
+    Array.from(slideEls).forEach(function (el) {
+      el.addEventListener('click', _this.slidetoggle);
+    });
     document.querySelector('.js-change-addform').addEventListener('click', _this.changeToAddForm);
+    document.querySelector('.js-show-all').addEventListener('click', _this.showAllCategories);
+  });
+
+  _defineProperty(this, "showAllCategories", function (event) {
+    var slideEls = document.querySelectorAll('.js-sortable');
+    var imgsEls = document.querySelectorAll('.js-slide-el img');
+    Array.from(slideEls).forEach(function (el) {
+      el.style.display = 'block';
+    });
+    Array.from(imgsEls).forEach(function (el) {
+      el.className = 'rotate';
+    });
+  });
+
+  _defineProperty(this, "slidetoggle", function (event) {
+    var id = event.currentTarget.dataset.id;
+    event.target.classList.toggle("rotate"); //  document.querySelector(event.currentTarget.class).classList.toggle('hidden-phone');
+
+    var el = document.querySelector(".js-sortable[data-id=\"".concat(id, "\"]"));
+
+    if (el.style.display === "none") {
+      el.style.display = "block";
+    } else {
+      el.style.display = "none";
+    }
   });
 
   _defineProperty(this, "changeToAddForm", function (event) {
-    var action = document.querySelector('form').action;
-    document.querySelector('form').action = document.querySelector('form').dataset.editAction;
-    document.querySelector('form').dataset.editAction = action;
+    var action = document.querySelector('#category').action;
+    document.querySelector('#category').action = document.querySelector('#category').dataset.editAction;
+    document.querySelector('#category').dataset.editAction = action;
     document.querySelector('input[name="id"]').value = '';
     document.getElementById('name').value = '';
+    document.querySelector('.js-label').innerHTML = "Category name:";
     document.querySelector('.js-add-edit').value = 'Add new';
     document.getElementById('parent_id').value = 0;
     document.querySelector('.js-change-addform').style.display = 'none';
@@ -4745,11 +4783,14 @@ var ManageCategories = function ManageCategories() {
     var id = event.currentTarget.dataset.id;
 
     if (id) {
-      _this.removeEl(id).then(function (data) {
-        data.success && document.querySelector(".js-remove-el[data-id=\"".concat(id, "\"]")).parentNode.remove();
-      })["catch"](function (error) {
-        return console.log(error);
-      });
+      if (window.confirm("Do you really want to delete that category?")) {
+        _this.removeEl(id).then(function (data) {
+          data.success && document.querySelector(".js-remove-el[data-id=\"".concat(id, "\"]")).parentNode.remove();
+          document.getElementById('parent_id').outerHTML = data.html;
+        })["catch"](function (error) {
+          return console.log(error);
+        });
+      }
     }
   });
 
@@ -4758,10 +4799,11 @@ var ManageCategories = function ManageCategories() {
         id = _event$currentTarget$.id,
         name = _event$currentTarget$.name,
         parent_id = _event$currentTarget$.parent_id;
-    var action = document.querySelector('form').action;
-    document.querySelector('form').action = document.querySelector('form').dataset.editAction;
-    document.querySelector('form').dataset.editAction = action;
+    var action = document.querySelector('#category').action;
+    document.querySelector('#category').action = document.querySelector('#category').dataset.editAction;
+    document.querySelector('#category').dataset.editAction = action;
     document.querySelector('input[name="id"]').value = id;
+    document.querySelector('.js-label').innerHTML = "Editing category: ".concat(name);
     document.getElementById('name').value = name;
     document.querySelector('.js-add-edit').value = 'Edit category';
 
