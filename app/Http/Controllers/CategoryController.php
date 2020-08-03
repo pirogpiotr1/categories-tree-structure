@@ -53,6 +53,11 @@ class CategoryController extends Controller
         return back()->with('Success','added');
     }
 
+    /**
+     * usuniecie categorii oraz dzieci
+     * @param Request $request
+     * @return mixed
+     */
     public function removeCategory(Request $request){
         $status = false;
         $data = $request->all();
@@ -73,6 +78,12 @@ class CategoryController extends Controller
         ));
     }
 
+    /**
+     * zapis edycji categorii
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
     public function editCategory(Request $request){
         $this->validate($request,[
             'name' => 'required',
@@ -87,14 +98,19 @@ class CategoryController extends Controller
         }
 
         Category::where('id', $input['id'])
-          ->update([
-              'name' => $input['name'],
-              'parent_id' => $input['parent_id']
+            ->update([
+                'name' => $input['name'],
+                'parent_id' => $input['parent_id']
             ]);
 
         return back()->with('Success','added');
     }
 
+    /**
+     * Zmiana pozycji galezi
+     * @param Request $request
+     * @return mixed
+     */
     public function changePosition(Request $request){
         $status = false;
         $data = $request->all();
@@ -132,8 +148,13 @@ class CategoryController extends Controller
             'html' => $view
         ));
     }
+
+    /**
+     * pobranie widoku aktualnego selecta z danymi categorii
+     * @return string
+     */
     public function getSelectView(){
         $rootCategory = Category::whereNull('parent_id')->orderByRaw('-sort DESC')->get();
-         return  (string) view('categories.categoriesViewAjaxSelect', compact('rootCategory'));
+        return  (string) view('categories.categoriesViewAjaxSelect', compact('rootCategory'));
     }
 }
