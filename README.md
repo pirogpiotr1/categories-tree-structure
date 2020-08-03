@@ -21,3 +21,4 @@ Do sortowania wykorzystano bibliotekę javascriptową https://github.com/Sortabl
 Zmiana pomiędzy formularzem dodawania a edycji kategorii odbywa się bez przeładowywania strony.
 Dodana została podstawowa walidacja danych.
 Nie tworzyłem funkcji ani procedur składowych, wszystko odbywa się na podstawie klucza obcego tabeli, który odnosi do własnych kolumn.
+Front-end napisany w czystym javaScrpit resources/js/categories.js
